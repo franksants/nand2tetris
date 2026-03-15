@@ -12,5 +12,10 @@ CHIP DMux {
     OUT a, b;
 
     PARTS:
-    //// Replace this comment with your code.
+    Nand(a=sel, b=sel, out=notSel);
+
+    Nand(a=in, b=notSel, out=resA);// return 0 if in is 1 and sel is 0
+    Nand(a=in, b=sel, out=resB); // return 0 if in is 1 and sel is 1
+    Nand(a=resA, b=resA, out=a); // if resA is 0, invert it and put on the final variable.
+    Nand(a=resB, b=resB, out=b); // if resA is 0, invert it and put on the final variable.
 }
