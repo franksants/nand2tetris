@@ -18,5 +18,31 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-    //// Replace this comment with your code.
+    Nand(a=sel[0],b=sel[0], out=notSelOne);
+    Nand(a=sel[1],b=sel[1], out=notSelTwo);
+    Nand(a=sel[2],b=sel[2], out=notSelThree);
+
+    And(a=notSelTwo, b=notSelOne, out=and00);
+    And(a=notSelTwo, b=sel[0], out=and01);
+    And(a=sel[1], b=notSelOne, out=and10);
+    And(a=sel[1], b=sel[0], out=and11);
+    
+
+    And(a=notSelThree, b=and00, out=outA);
+    And(a=notSelThree, b=and01, out=outB);
+    And(a=notSelThree, b=and10, out=outC);
+    And(a=notSelThree, b=and11, out=outD);
+    And(a=sel[2], b=and00, out=outE);
+    And(a=sel[2], b=and01, out=outF);
+    And(a=sel[2], b=and10, out=outG);
+    And(a=sel[2], b=and11, out=outH);
+
+    And(a=outA, b=in, out=a);
+    And(a=outB, b=in, out=b);
+    And(a=outC, b=in, out=c);
+    And(a=outD, b=in, out=d);
+    And(a=outE, b=in, out=e);
+    And(a=outF, b=in, out=f);
+    And(a=outG, b=in, out=g);
+    And(a=outH, b=in, out=h);
 }
