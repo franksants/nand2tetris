@@ -11,5 +11,103 @@ CHIP FullAdder {
         carry;   // Left bit of a + b + c
 
     PARTS:
-    //// Replace this comment with your code.
+    HalfAdder(a=a, b=b, carry=carryAB, sum=sumAB);
+    HalfAdder(a=sumAB, b=c, carry=carryABC, sum=sum);
+    HalfAdder(a=carryAB, b=carryABC, sum=carry);
 }
+/*
+Method One(did not work)
+*(
+  the final carry is defined on the first HalfAdder, where it's the sumAB.
+  The carry of the second HalfAdder is wasted.
+*)
+
+It must sum the first bit with the second bit, atributting the final carry and creating the sumAB.
+After suming the sumAB plus c, atributting the final sum and wasting the carry of it.
+
+0 0 0 
+
+* Result:
+| carry = 0 | sum = 0 |;
+* Expected: 
+| carry = 0 | sum = 0 |, correct;
+
+0 0 1
+
+* Result
+| carry = 0 | sum = 1 |;
+* Expected:
+| carry = 0 | sum = 1 |, correct;
+
+0 1 0
+| carry = 0 | sum = 1 |;
+* Expected:
+| carry = 0 | sum = 1 |, correct;
+
+0 1 1 
+| carry = 0 | sum = 0 |;
+* Expected:
+| carry = 1 | sum = 0 |, incorrect;
+
+* Discard this method fully.
+
+
+
+Method Two(It works)
+*(
+  The carrys of the first and second HalfAdder is used here.
+  Add a new HalfAdder.
+  The carry and sum is atribuited them resopectively value in separately HalfAdder.
+*)
+
+It must sum the first and the second bit using a HalfAdder logic gate, creating the carryAB and the sumAB.
+After it, define a HalfAdder with the sumAB and the c, atributting the sum output withe the sum, and creating the carryABC.
+Now, define a HalfAdder with the carryAB and the carryABC, atributting the carry output like "sum=carry", and wasting the carry of it HalfAdder.
+
+0 0 0 
+
+* Result:
+| carry = 0 | sum = 0 |;
+* Expected: 
+| carry = 0 | sum = 0 |, correct;
+
+0 0 1
+
+* Result
+| carry = 0 | sum = 1 |;
+* Expected:
+| carry = 0 | sum = 1 |, correct;
+
+0 1 0
+| carry = 0 | sum = 1 |;
+* Expected:
+| carry = 0 | sum = 1 |, correct;
+
+0 1 1 
+| carry = 1 | sum = 0 |;
+* Expected:
+| carry = 1 | sum = 0 |, correct;
+
+1 0 0 
+| carry = 0 | sum = 1 |;
+* Expected:
+| carry = 0 | sum = 0 |, correct;
+
+1 0 1 
+| carry = 1 | sum = 0 |;
+* Expected:
+| carry = 1 | sum = 0 |, correct;
+
+1 1 0 
+| carry = 1 | sum = 0 |;
+* Expected:
+| carry = 1 | sum = 0 |, correct;
+
+1 1 1 
+| carry = 1 | sum = 1 |;
+* Expected:
+| carry = 1 | sum = 1 |, correct;
+
+* Operation completed sucessfully. *
+
+*/
